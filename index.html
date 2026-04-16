@@ -5,68 +5,127 @@
     <style>
         body {
             font-family: Arial;
-            background-color: #f2f2f2;
+            background: #f2f2f2;
             text-align: center;
         }
+
         h1 {
             color: #2c3e50;
         }
-        #chatbox {
-            width: 300px;
-            height: 200px;
-            border: 1px solid #ccc;
-            margin: auto;
-            overflow-y: scroll;
+
+        .container {
             background: white;
-            padding: 10px;
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
         }
-        input {
-            padding: 10px;
-            width: 200px;
-        }
+
         button {
             padding: 10px;
-            background: blue;
+            margin: 5px;
+            background: #3498db;
             color: white;
             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #output {
+            margin-top: 10px;
+            font-weight: bold;
+            color: green;
+        }
+
+        #chatbox {
+            height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #fff;
+            margin-top: 10px;
+        }
+
+        input {
+            padding: 10px;
+            width: 65%;
         }
     </style>
 </head>
+
 <body>
 
 <h1>Smart Classroom Assistant</h1>
 
-<div id="chatbox"></div><br>
+<div class="container">
 
-<input type="text" id="userInput" placeholder="Ask something...">
-<button onclick="sendMessage()">Send</button>
+    <h3>Features</h3>
+
+    <button onclick="showAttendance()">Attendance</button>
+    <button onclick="showPerformance()">Performance</button>
+    <button onclick="showNotes()">Notes</button>
+
+    <p id="output"></p>
+
+    <h3>AI Chatbot</h3>
+
+    <div id="chatbox"></div><br>
+
+    <input type="text" id="userInput" placeholder="Ask something...">
+    <button onclick="sendMessage()">Send</button>
+
+</div>
 
 <script>
+
+// Feature Functions
+function showAttendance() {
+    document.getElementById("output").innerText = "Your attendance is 92%";
+}
+
+function showPerformance() {
+    document.getElementById("output").innerText = "Your performance is Good";
+}
+
+function showNotes() {
+    document.getElementById("output").innerText = "Notes are available for all subjects.";
+}
+
+// Chatbot Function
 function sendMessage() {
+
     let input = document.getElementById("userInput").value.trim();
     let response = "";
 
     if (input === "") {
         response = "Please enter a question.";
     } 
-    else if (input.toLowerCase().includes("attendance")) {
-        response = "Attendance is automatically tracked.";
+    else if (input.toLowerCase().includes("ai")) {
+        response = "AI means Artificial Intelligence. It helps machines think like humans.";
     } 
-    else if (input.toLowerCase().includes("marks")) {
-        response = "Marks are shown in dashboard.";
+    else if (input.toLowerCase().includes("attendance")) {
+        response = "Attendance is tracked automatically using smart system.";
+    } 
+    else if (input.toLowerCase().includes("performance")) {
+        response = "You can check performance using dashboard.";
+    } 
+    else if (input.toLowerCase().includes("notes")) {
+        response = "Notes are available in the learning section.";
     } 
     else if (input.toLowerCase().includes("hello")) {
         response = "Hello! How can I help you?";
     } 
     else {
-        response = "Sorry, I will improve to answer this.";
+        response = "Please ask about attendance, performance, notes or AI.";
     }
 
     document.getElementById("chatbox").innerHTML += "<p><b>You:</b> " + input + "</p>";
     document.getElementById("chatbox").innerHTML += "<p><b>Bot:</b> " + response + "</p>";
 
-    document.getElementById("userInput").value = " ";
+    document.getElementById("userInput").value = "";
 }
+
 </script>
 
 </body>
