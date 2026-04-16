@@ -9,11 +9,7 @@
             text-align: center;
         }
 
-        h1 {
-            color: #2c3e50;
-        }
-
-        .container {
+        .box {
             background: white;
             width: 350px;
             margin: auto;
@@ -22,34 +18,27 @@
             box-shadow: 0px 0px 10px gray;
         }
 
+        input {
+            padding: 10px;
+            margin: 5px;
+            width: 80%;
+        }
+
         button {
             padding: 10px;
             margin: 5px;
-            background: #3498db;
+            background: blue;
             color: white;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #output {
-            margin-top: 10px;
-            font-weight: bold;
-            color: green;
         }
 
         #chatbox {
-            height: 200px;
+            height: 150px;
             overflow-y: scroll;
             border: 1px solid #ccc;
-            padding: 10px;
-            background: #fff;
             margin-top: 10px;
-        }
-
-        input {
             padding: 10px;
-            width: 65%;
         }
     </style>
 </head>
@@ -58,9 +47,17 @@
 
 <h1>Smart Classroom Assistant</h1>
 
-<div class="container">
+<div id="loginBox" class="box">
+    <h3>Student Login</h3>
+    <input type="text" id="username" placeholder="Enter ID"><br>
+    <input type="password" id="password" placeholder="Enter Password"><br>
+    <button onclick="login()">Login</button>
+    <p id="loginMsg"></p>
+</div>
 
-    <h3>Features</h3>
+<div id="mainBox" class="box" style="display:none;">
+
+    <h3>Welcome Student</h3>
 
     <button onclick="showAttendance()">Attendance</button>
     <button onclick="showPerformance()">Performance</button>
@@ -79,49 +76,62 @@
 
 <script>
 
-// Feature Functions
+let currentUser = "";
+
+// LOGIN FUNCTION
+function login() {
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    if (user === "poojitha" && pass === "1234") {
+        currentUser = user;
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("mainBox").style.display = "block";
+    } else {
+        document.getElementById("loginMsg").innerText = "Invalid ID or Password";
+    }
+}
+
+// DATA FUNCTIONS
 function showAttendance() {
-    document.getElementById("output").innerText = "Your attendance is 92%";
+    if (currentUser === "poojitha") {
+        document.getElementById("output").innerText = "Attendance: 92%";
+    }
 }
 
 function showPerformance() {
-    document.getElementById("output").innerText = "Your performance is Good";
+    if (currentUser === "poojitha") {
+        document.getElementById("output").innerText = "Performance: Good";
+    }
 }
 
 function showNotes() {
-    document.getElementById("output").innerText = "Notes are available for all subjects.";
+    document.getElementById("output").innerText = "Notes available for all subjects.";
 }
 
-// Chatbot Function
+// CHATBOT
 function sendMessage() {
-
     let input = document.getElementById("userInput").value.trim();
     let response = "";
 
     if (input === "") {
         response = "Please enter a question.";
     } 
-    else if (input.toLowerCase().includes("ai")) {
-        response = "AI means Artificial Intelligence. It helps machines think like humans.";
-    } 
     else if (input.toLowerCase().includes("attendance")) {
-        response = "Attendance is tracked automatically using smart system.";
+        response = "Your attendance is 92%";
     } 
     else if (input.toLowerCase().includes("performance")) {
-        response = "You can check performance using dashboard.";
+        response = "Your performance is good";
     } 
-    else if (input.toLowerCase().includes("notes")) {
-        response = "Notes are available in the learning section.";
-    } 
-    else if (input.toLowerCase().includes("hello")) {
-        response = "Hello! How can I help you?";
+    else if (input.toLowerCase().includes("ai")) {
+        response = "AI means Artificial Intelligence";
     } 
     else {
-        response = "Please ask about attendance, performance, notes or AI.";
+        response = "Ask about attendance, performance or notes.";
     }
 
-    document.getElementById("chatbox").innerHTML += "<p><b>You:</b> " + input + "</p>";
-    document.getElementById("chatbox").innerHTML += "<p><b>Bot:</b> " + response + "</p>";
+    document.getElementById("chatbox").innerHTML += "<p>You: " + input + "</p>";
+    document.getElementById("chatbox").innerHTML += "<p>Bot: " + response + "</p>";
 
     document.getElementById("userInput").value = "";
 }
