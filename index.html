@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px gray;
+            margin-top: 50px;
         }
 
         input {
@@ -27,18 +29,26 @@
         button {
             padding: 10px;
             margin: 5px;
-            background: blue;
+            background: #3498db;
             color: white;
             border: none;
             border-radius: 5px;
+            cursor: pointer;
         }
 
         #chatbox {
             height: 150px;
             overflow-y: scroll;
             border: 1px solid #ccc;
-            margin-top: 10px;
             padding: 10px;
+            background: #fff;
+            margin-top: 10px;
+        }
+
+        #output {
+            margin-top: 10px;
+            font-weight: bold;
+            color: green;
         }
     </style>
 </head>
@@ -47,6 +57,7 @@
 
 <h1>Smart Classroom Assistant</h1>
 
+<!-- LOGIN BOX -->
 <div id="loginBox" class="box">
     <h3>Student Login</h3>
     <input type="text" id="username" placeholder="Enter ID"><br>
@@ -55,6 +66,7 @@
     <p id="loginMsg"></p>
 </div>
 
+<!-- MAIN SYSTEM -->
 <div id="mainBox" class="box" style="display:none;">
 
     <h3>Welcome Student</h3>
@@ -80,8 +92,8 @@ let currentUser = "";
 
 // LOGIN FUNCTION
 function login() {
-    let user = document.getElementById("username").value;
-    let pass = document.getElementById("password").value;
+    let user = document.getElementById("username").value.trim().toLowerCase();
+    let pass = document.getElementById("password").value.trim();
 
     if (user === "poojitha" && pass === "1234") {
         currentUser = user;
@@ -92,21 +104,17 @@ function login() {
     }
 }
 
-// DATA FUNCTIONS
+// FEATURES
 function showAttendance() {
-    if (currentUser === "poojitha") {
-        document.getElementById("output").innerText = "Attendance: 92%";
-    }
+    document.getElementById("output").innerText = "Attendance: 92%";
 }
 
 function showPerformance() {
-    if (currentUser === "poojitha") {
-        document.getElementById("output").innerText = "Performance: Good";
-    }
+    document.getElementById("output").innerText = "Performance: Good";
 }
 
 function showNotes() {
-    document.getElementById("output").innerText = "Notes available for all subjects.";
+    document.getElementById("output").innerText = "Notes are available for all subjects.";
 }
 
 // CHATBOT
@@ -130,8 +138,8 @@ function sendMessage() {
         response = "Ask about attendance, performance or notes.";
     }
 
-    document.getElementById("chatbox").innerHTML += "<p>You: " + input + "</p>";
-    document.getElementById("chatbox").innerHTML += "<p>Bot: " + response + "</p>";
+    document.getElementById("chatbox").innerHTML += "<p><b>You:</b> " + input + "</p>";
+    document.getElementById("chatbox").innerHTML += "<p><b>Bot:</b> " + response + "</p>";
 
     document.getElementById("userInput").value = "";
 }
